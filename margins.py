@@ -318,6 +318,7 @@ class margin_calc:
   def van_herk(systematic_errors=[],random_errors=[],alpha=2.5, beta=0.7,sigma_p=None):
     '''
       calculate van her margins from setup errors according to BIR guidance
+      (Tudor GSJ. et al. 2020 Geometric Uncertainties in Daily Online IGRT: Refining the CTV-PTV Margin for Contemporary Photon Radiotherapy. British Institute of Radiology.)
     '''
     S_total = np.sqrt(np.sum(np.square(systematic_errors)))
     if sigma_p is None:
