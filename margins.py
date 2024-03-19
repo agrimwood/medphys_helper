@@ -123,7 +123,7 @@ class margin_calc:
 
 
   # calculte PTV margins from errors
-  def calc_margins(self, alpha=0.7, beta=2.5, penumbra=None):
+  def calc_margins(self, alpha=2.5, beta=0.7, penumbra=None):
     '''
       Calculate Van Herk PTV margins along 3 axes from setup errors
 
