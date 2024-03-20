@@ -409,21 +409,24 @@ class margin_calc:
       return {'Patients': P, 'Oncologists': D, 'Fractions': N, 'Hospitals': H}
 
 
-  def plot_imagetypes(self,group=None,saveplot=False):
+  def plot_imagetypes(self,group=None,saveplot=None, colour=sns.palettes.mpl_palette('Dark2')):
     '''
       plot bar chart that counts instances of values in dataframe column
 
       Inputs
-        - group (str):  name of dataframe column
+        - group (str):    name of dataframe column
+        - saveplot (str): optional filename
     '''
     if type(self.filtered_data) is list:
       for key,val in dict:
-        val.groupby(group).size().plot(kind='barh', color=sns.palettes.mpl_palette('Dark2'))
+        val.groupby(group).size().plot(kind='barh', color=colour)
         plt.gca().spines[['top', 'right',]].set_visible(False)
         if saveplot:
           head,tail = os.path.split(saveplot)
           plt.savefig(head+os.sep+val+'_'+tail)
     else:
-      self.filtered_data.groupby(group).size().plot(kind='barh', color=sns.palettes.mpl_palette('Dark2'))
+      self.filtered_data.groupby(group).size().plot(kind='barh', color=colour)
       plt.gca().spines[['top', 'right',]].set_visible(False)
-      plt.savefig(saveplot)
+      if saveplot:
+        head,tail = os.path.split(saveplot)
+        plt.savefig(saveplot)
