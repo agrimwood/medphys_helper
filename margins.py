@@ -334,7 +334,7 @@ class margin_calc:
   
 
   @staticmethod
-  def setupscat(df=None,x_data='',y_data='',plot_title='',grouping='', axis_range=[-1.5,1.5],legend_display=False, im_format='svg', root_dir=None, save_fig=True, fname_prefix='',x_label='',y_label='', E=None):
+  def setupscat(df=None,x_data='',y_data='',plot_title='',grouping=None, axis_range=[-1.5,1.5],legend_display=False, im_format='svg', root_dir=None, save_fig=True, fname_prefix='',x_label='',y_label='', E=None):
     sr = axis_range
     if root_dir:
       fname = os.path.join(root_dir,fname_prefix+'_Scat_'+plot_title+'.'+im_format)
