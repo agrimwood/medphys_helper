@@ -329,7 +329,7 @@ class margin_calc:
       penumbra = pd.DataFrame(columns=random_errors.columns, data=[penumbra])
       random_errors = pd.concat([random_errors,penumbra])
       s_total = np.sqrt(np.sum(np.square(random_errors)))
-      M = alpha*S_total + beta*(s_total - penumbra)
+      M = alpha*S_total + beta*s_total - beta*penumbra
     return M
   
 
