@@ -46,7 +46,7 @@ class margin_calc:
 
     # join patient ID table and data tables
     df = df.join(ID_table.set_index('PatientID'), on='PatientID')
-    df = df.sort_values(by=['PatientID','Session Date','Session Time'],ignore_index=True)
+    df = df.sort_values(by=['PatientID','Session Date','Session Time','Time'],ignore_index=True)
 
     # assign class vars
     self.data_table = df
