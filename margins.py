@@ -300,7 +300,7 @@ class margin_calc:
     s[['Vrt','Lat','Lng']] = np.square(s[['Vrt','Lat','Lng']])
     s = s.groupby('PatientID',as_index=False).sum()
     s = s.join(filtered_data['PatientID'].value_counts().to_frame(),rsuffix='_np',on='PatientID')
-    s.rename(columns={'PatientID_np': 'np'}, inplace=True)
+    s.rename(columns={'count': 'np'}, inplace=True)
     s[['Vrt','Lat','Lng']] = s[['Vrt','Lat','Lng']].divide(np.array(s['np'])-1, axis='index')
     s[['Vrt','Lat','Lng']] = np.sqrt(s[['Vrt','Lat','Lng']])
     s.set_index('PatientID',inplace=True)
