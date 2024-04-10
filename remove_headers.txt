@@ -1,0 +1,12 @@
+$data_dir = "U:\Projects\HN_Audit\temp"
+cd $data_dir
+Get-ChildItem $data_dir -Filter *.txt | 
+Foreach-Object {
+$fname = $_.FullName
+(gc $fname | select -Skip 12) | sc -Encoding Utf8 $fname
+}
+Get-ChildItem $data_dir -Filter *.txt | 
+Foreach-Object {
+$fname = $_.FullName
+(gc $fname | Where-Object Readcount -ne 2) | sc -Encoding Utf8 $fname
+}
