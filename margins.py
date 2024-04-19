@@ -12,7 +12,7 @@ class margin_calc:
   '''
     Class reads exported Offline Review data from Varian ARIA and calculates PTV margins from setup errors.
   '''
-  def __init__(self,pt_csv=None,data_dir=None, colab=True):
+  def __init__(self,pt_csv=None,data_dir=None, colab=True, plansSpecified=False):
     '''
       Input
         - pt_csv:        csv path, file must contain the following columns: PatientID, Primary Oncologist, Clinic
@@ -44,9 +44,14 @@ class margin_calc:
     df['Treatment Pos Lat'] = df['Treatment Pos Lat'] - np.where(df['Treatment Pos Lat'] > 50, 1000, 0)
     df['Couch Lat'] = df['Couch Lat'] - np.where(df['Couch Lat'] > 50, 1000, 0)
 
-    # join patient ID table and data tables
-    df = df.join(ID_table.set_index('PatientID'), on='PatientID')
-    df = df.sort_values(by=['PatientID','Session Date','Session Time','Time'],ignore_index=True)
+    if plansSpecified:
+      # join patient ID table and data tables where specific plans are listed in the ID table
+      df = df.join(ID_table.set_index(['PatientID','Plan ID']), on=['PatientID', 'Plan ID'], how='inner')
+      df = df.sort_values(by=['PatientID','Plan ID','Session Date','Session Time','Time'],ignore_index=True)
+    else:
+      # join patient ID table and data tables where no plans are listed in the ID table
+      df = df.join(ID_table.set_index('PatientID'), on='PatientID')
+      df = df.sort_values(by=['PatientID','Session Date','Session Time','Time'],ignore_index=True)
 
     # assign class vars
     self.data_table = df
