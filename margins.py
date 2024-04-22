@@ -47,7 +47,7 @@ class margin_calc:
     if plansSpecified:
       # join patient ID table and data tables where specific plans are listed in the ID table
       df = df.join(ID_table.set_index(['PatientID','Plan ID']), on=['PatientID', 'Plan ID'], how='inner')
-      df = df.sort_values(by=['PatientID','Plan ID','Session Date','Session Time','Time'],ignore_index=True)
+      df = df.sort_values(by=['PatientID','Plan ID','Date','Time'],ignore_index=True)
     else:
       # join patient ID table and data tables where no plans are listed in the ID table
       df = df.join(ID_table.set_index('PatientID'), on='PatientID')
