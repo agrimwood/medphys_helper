@@ -71,7 +71,8 @@ class margin_calc:
                  split_field=None,
                  split_values=None,
                  fraction_threshold=10,
-                 end_to_end=True):
+                 end_to_end=True,
+                 nandrop=[]):
     '''
       Filer and cleanse data loaded from anonymised Offline Review txt files.
       
@@ -82,11 +83,13 @@ class margin_calc:
         - keep_strdict:       (dict) lists by column name. Only containing listed substrings are kept
         - fraction_threshold: (int) PatientIDs with fewer records are dropped (default 10)
         - end_to_end:         (default True) dictates whether first (True), last (False) or all (None) records per PatientID are used to calculate setup errors
+        - nandrop:            (list) drop rows where named columns contain NaNs
 
       Class vars
         - filtered_data:      (dataframe) table of filtered data
     '''
     df = self.data_table
+    df.dropna(subset=nandrop, inplace=True)
     cleaned_df = self.filter_df(df,keep_dict,drop_dict,str_dict,keep_strdict,split_field,split_values,fraction_threshold)
     # recalculate online shifts as difference between treatment position vs couch position
     recalced_df = self.recalc_shifts(cleaned_df, end_to_end)
